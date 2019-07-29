@@ -1,41 +1,68 @@
-var countries = ["Philippines", "Japan", "Colombia", "Peru"];
+var natureList = ["Waterfalls", "Northern Lights", "Mountains", "Stars"];
 
-function displaycountryInfo() {
-  var country = $(this).attr("data-name");
+function displaynatureInfo() {
+  var nature = "";
+
+  // var nature = $(this).attr("data-name");
   var queryURL =
-    "https://api.giphy.com/v1/gifs/random?api_key=Q6uWCQmzT91m1DPvQK9kXq05ozicZCNg&tag=nature&limit=10&q=" +
-    country;
+    "https://api.giphy.com/v1/gifs/random?api_key=Q6uWCQmzT91m1DPvQK9kXq05ozicZCNg&limit=30&tag=nature&tag=" +
+    nature;
+
   $.ajax({
     url: queryURL,
     method: "GET"
   }).then(function(response) {
-    var imageURL = response.data.image_original_url;
-    var countryImage = $("<img>");
-    countryImage.attr("src", imageURL);
-    $("#countries-view").append(countryImage);
+    $("#nature-view").empty();
+
+    for (var i = 1; i < 10; i++) {
+      console.log(response.data.length);
+      var stillImageURL = response.data.images.fixed_width_still.url;
+      var animatedImageURL = response.data.image_original_url;
+      var natureImage = $("<img>");
+      natureImage.attr("src", stillImageURL);
+
+      natureImage.attr("data-still", stillImageURL);
+      natureImage.attr("data-animate", animatedImageURL);
+      natureImage.attr("data-state", "still");
+
+      natureImage.attr("class", "gif");
+
+      $("#nature-view").append(natureImage);
+    }
+
+    $(".gif").on("click", function() {
+      var state = $(this).attr("data-state");
+      if (state === "still") {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+      } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+      }
+    });
   });
 }
 
-function countryButtons() {
+function natureButtons() {
   $("#buttons").empty();
-  for (var i = 0; i < countries.length; i++) {
+  for (var i = 0; i < natureList.length; i++) {
     var a = $("<button>");
-    a.addClass("country-btn");
-    a.attr("data-name", countries[i]);
-    a.text(countries[i]);
+    a.addClass("nature-btn");
+    a.attr("data-name", natureList[i]);
+    a.text(natureList[i]);
     $("#buttons").append(a);
   }
 }
 
-$("#add-country").on("click", function(event) {
+$("#add-nature").on("click", function(event) {
   event.preventDefault();
-  var country = $("#country-input")
+  var nature = $("#nature-input")
     .val()
     .trim();
-  countries.push(country);
-  countryButtons();
+  natureList.push(nature);
+  natureButtons();
 });
 
-$(document).on("click", ".country-btn", displaycountryInfo);
+$(document).on("click", ".nature-btn", displaynatureInfo);
 
-countryButtons();
+natureButtons();
