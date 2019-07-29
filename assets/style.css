@@ -1,5 +1,5 @@
 body {
-  background-image: url("../forest.jpg");
+  background-image: url("../images/forest.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   image-rendering: -webkit-optimize-contrast;
@@ -7,11 +7,11 @@ body {
 }
 
 h1 {
-    width: 100%;
-    padding: 20px;
-    font-size: 75px;
-    text-align: center;
-  }
+  width: 100%;
+  padding: 20px;
+  font-size: 75px;
+  text-align: center;
+}
 
 img {
   padding: 10px;
