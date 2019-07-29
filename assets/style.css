@@ -1,0 +1,27 @@
+body {
+  background-image: url("../forest.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  image-rendering: -webkit-optimize-contrast;
+  color: white;
+}
+
+h1 {
+    width: 100%;
+    padding: 20px;
+    font-size: 75px;
+    text-align: center;
+  }
+
+img {
+  padding: 10px;
+}
+
+#neature {
+  height: 150px;
+  width: 200px;
+}
+
+button {
+  margin: 5px;
+}
