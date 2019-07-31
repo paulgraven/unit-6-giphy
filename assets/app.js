@@ -1,11 +1,12 @@
 var natureList = ["Waterfalls", "Northern Lights", "Mountains", "Stars"];
 
-function displaynatureInfo() {
+function displaynatureInfo(nature) {
   var nature = $(this).attr("data-name");
   // console.log(nature);
   var queryURL =
-    "https://api.giphy.com/v1/gifs/random?api_key=Q6uWCQmzT91m1DPvQK9kXq05ozicZCNg&limit=10&tag=nature&tag=" +
-    nature;
+    "https://api.giphy.com/v1/gifs/search?api_key=Q6uWCQmzT91m1DPvQK9kXq05ozicZCNg&q=" +
+    nature +
+    "&limit=20&offset=0&rating=G&lang=en";
 
   $.ajax({
     url: queryURL,
@@ -13,13 +14,13 @@ function displaynatureInfo() {
   }).then(function(response) {
     $("#nature-view").empty();
     for (var i = 0; i < 10; i++) {
-      // console.log(response.data);
+      console.log(response.data[i]);
+      console.log(response.data);
+      // var stillImageURL = response.data.images.fixed_width_still.url;
+      // var animatedImageURL = response.data.images.fixed_width.url;
 
-      var stillImageURL = response.data.images.fixed_width_still.url;
-      var animatedImageURL = response.data.images.fixed_width.url;
-
-      // var stillImageURL = response.data[i].images.fixed_width_still.url;
-      // var animatedImageURL = response.data[i].images.fixed_width.url;
+      var stillImageURL = response.data[i].images.fixed_height_still.url;
+      var animatedImageURL = response.data[i].images.fixed_height.url;
 
       // console.log(animatedImageURL);
       var natureImage = $("<img>");
